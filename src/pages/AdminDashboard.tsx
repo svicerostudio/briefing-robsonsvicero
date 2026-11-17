@@ -23,88 +23,6 @@ import { Briefing, BriefingStatus, BriefingType } from '../types/briefing';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
-// Dados de exemplo para o caso do banco ainda estar vazio ou em fase inicial
-const sampleBriefings: Briefing[] = [
-  {
-    id: 'demo-1',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
-    tipo_briefing: 'Site',
-    nome: 'Carlos Eduardo Mendes',
-    email: 'carlos@mendesadvocacia.com.br',
-    telefone: '(11) 98765-4321',
-    empresa: 'Mendes Advocacia Corporativa',
-    status: 'novo',
-    dados: {
-      nome: 'Carlos Eduardo Mendes',
-      email: 'carlos@mendesadvocacia.com.br',
-      telefone: '(11) 98765-4321',
-      empresa: 'Mendes Advocacia Corporativa',
-      cargo: 'Sócio Fundador',
-      site_atual: 'https://mendesadv.com.br',
-      negocio: 'Escritório de advocacia especializado em direito tributário e empresarial.',
-      tipo_site: ['Institucional', 'Blog / conteúdo'],
-      objetivo: 'Gerar autoridade e captar clientes corporativos de médio e grande porte.',
-      acao_principal: 'Chamar no WhatsApp e agendar consulta',
-      diferencial: 'Mais de 15 anos de atuação com atendimento personalizado.',
-      concorrentes: 'https://exemplo1.com.br\nhttps://exemplo2.com.br',
-      publico: 'Diretores financeiros, empresários e gerentes jurídicos.',
-      paginas: ['Home', 'Sobre', 'Serviços', 'Blog', 'Contato'],
-      textos: 'Preciso de redação profissional',
-      imagens: 'Usar banco de imagens profissional',
-      recursos: ['Formulário de contato', 'Botão de WhatsApp flutuante', 'SEO otimizado', 'Blog com painel'],
-      identidade: 'Sim, completa',
-      cores: 'Azul marinho, cinza chumbo e dourado',
-      estilo: 'Elegante e sofisticado',
-      prazo: '2 a 4 semanas',
-      orcamento: 'R$ 8 mil a R$ 20 mil',
-      dominio: 'Sim, no Registro.br',
-      manutencao: 'Sim, mensal',
-    },
-  },
-  {
-    id: 'demo-2',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-    tipo_briefing: 'App',
-    nome: 'Juliana Vasconcelos',
-    email: 'juliana@fitlifeplatform.com',
-    telefone: '(21) 99887-1122',
-    empresa: 'FitLife Gestão Fitness',
-    status: 'em_analise',
-    dados: {
-      nome: 'Juliana Vasconcelos',
-      email: 'juliana@fitlifeplatform.com',
-      telefone: '(21) 99887-1122',
-      empresa: 'FitLife Gestão Fitness',
-      cargo: 'CEO',
-      negocio: 'Plataforma para academias e personal trainers gerenciarem treinos e pagamentos.',
-      nome_projeto: 'FitLife Hub Pro',
-      problema: 'Personais perdem muito tempo cobrando clientes pelo WhatsApp e montando treinos em planilhas.',
-      objetivo: 'Criar um portal web onde o treinador cadastra alunos e recebe mensalidades automáticas.',
-      tipo_app: ['Plataforma / SaaS', 'Área de membros / cursos'],
-      publico: 'Personal trainers e donos de estúdios fitness de todo o Brasil.',
-      qtd_usuarios: '100 a 1.000',
-      perfis: 'Personal Trainer, Aluno, Super Administrador',
-      dispositivos: ['Celular', 'Desktop'],
-      funcionalidades: [
-        'Login e cadastro',
-        'Perfis e permissões',
-        'Dashboard e relatórios',
-        'Pagamentos online',
-        'Assinaturas recorrentes',
-        'Notificações (e-mail/push)',
-      ],
-      funcionalidades_essenciais: 'Cadastro de planos, checkout transparente com PIX/cartão e painel de fichas de treino.',
-      integracoes: 'Mercado Pago e Asaas',
-      identidade: 'Parcial (só logo)',
-      cores: 'Preto e verde neon',
-      estilo: 'Moderno e minimalista',
-      tema: 'Escuro',
-      prazo: '1 a 3 meses',
-      orcamento: 'R$ 30 mil a R$ 80 mil',
-    },
-  },
-];
-
 export const AdminDashboard: React.FC = () => {
   const [briefings, setBriefings] = useState<Briefing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,16 +42,10 @@ export const AdminDashboard: React.FC = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-
-      if (data && data.length > 0) {
-        setBriefings(data);
-      } else {
-        // Se ainda não houver nenhum registro no banco, carrega os exemplos ilustrativos
-        setBriefings(sampleBriefings);
-      }
+      setBriefings(data || []);
     } catch (err) {
-      console.warn('Usando dados locais no painel:', err);
-      setBriefings(sampleBriefings);
+      console.error('Erro ao buscar briefings no Supabase:', err);
+      setBriefings([]);
     } finally {
       setLoading(false);
     }
@@ -296,7 +208,9 @@ export const AdminDashboard: React.FC = () => {
           ) : filteredBriefings.length === 0 ? (
             <div className="py-16 text-center text-ink-500 text-sm">
               <FileText className="w-10 h-10 mx-auto mb-3 text-ink-300" />
-              Nenhum briefing encontrado para estes filtros.
+              {briefings.length === 0
+                ? 'Nenhum briefing cadastrado ainda.'
+                : 'Nenhum briefing encontrado para estes filtros.'}
             </div>
           ) : (
             <div className="overflow-x-auto">
