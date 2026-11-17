@@ -270,7 +270,7 @@ export const AppBriefing: React.FC = () => {
       </div>
 
       {/* Main Container */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 -mt-6 pb-20 w-full flex-1">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-20 w-full flex-1">
         {/* Progress Bar */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-surface-200 mb-6">
           <div className="flex justify-between items-center text-xs font-semibold text-ink-500 mb-2">

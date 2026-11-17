@@ -12,13 +12,13 @@ Projeto completo em **React + Vite + TypeScript + Tailwind CSS** integrado ao **
    * Ele criará a tabela `briefings`, os índices de alta performance e as políticas de segurança (RLS).
 4. No Supabase, vá em **Authentication > Users** e clique em **Add User > Create User**:
    * Informe seu e-mail e crie uma senha forte (esta será a sua credencial para acessar `/admin`).
-5. No Supabase, vá em **Project Settings > API** e copie:
+5. No Supabase, vá em **Project Settings > API Keys** e copie:
    * **Project URL**
-   * **anon / public key**
+   * **Publishable key** (ou chave `anon / public` legada)
 6. Edite o arquivo `.env` na raiz deste projeto com essas chaves:
    ```env
    VITE_SUPABASE_URL=https://seu-projeto.supabase.co
-   VITE_SUPABASE_ANON_KEY=sua-chave-anon-aqui
+   VITE_SUPABASE_PUBLISHABLE_KEY=sua-chave-publishable-aqui
    ```
 
 ---

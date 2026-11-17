@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Seleção de Tipo de Projeto */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 -mt-10 pb-16 w-full">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 pb-16 w-full">
           <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-surface-200/80">
             <h2 className="text-lg font-bold text-navy-900 mb-6 text-center">
               Que tipo de projeto você quer criar?

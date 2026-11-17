@@ -41,10 +41,12 @@ export const Navbar: React.FC<NavbarProps> = ({ showBack }) => {
               Início
             </Link>
           )}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-lg text-navy-900 tracking-tight">
-              ROBSON SVICERO
-            </span>
+          <Link to="/" className="flex items-center space-x-2.5">
+            <img
+              src="/assets/logo_azul.svg"
+              alt="Robson Svicero"
+              className="h-8 sm:h-9 w-auto object-contain"
+            />
             <span className="text-xs font-semibold px-2 py-0.5 rounded bg-accent-50 text-accent-700 border border-accent-200">
               Briefings
             </span>
