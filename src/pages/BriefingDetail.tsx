@@ -233,7 +233,7 @@ export const BriefingDetail: React.FC = () => {
           <div className="space-y-8">
             {/* Bloco 1: O Negócio */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 01 · Sobre o Negócio
               </h2>
               <div className="bg-surface-50/60 p-4 rounded-2xl border border-surface-200/60 text-sm leading-relaxed text-ink-900 whitespace-pre-wrap">
@@ -243,7 +243,7 @@ export const BriefingDetail: React.FC = () => {
 
             {/* Bloco 2: O Projeto */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 02 · O Projeto & Objetivos
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -327,7 +327,7 @@ export const BriefingDetail: React.FC = () => {
 
             {/* Bloco 3: Público e Estrutura */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 03 · Público & Estrutura
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -381,7 +381,7 @@ export const BriefingDetail: React.FC = () => {
 
             {/* Bloco 4: Funcionalidades */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 04 · Funcionalidades & Integrações
               </h2>
               <div className="space-y-4">
@@ -423,7 +423,7 @@ export const BriefingDetail: React.FC = () => {
 
             {/* Bloco 5: Design e Identidade */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 05 · Design & Identidade Visual
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -501,7 +501,7 @@ export const BriefingDetail: React.FC = () => {
 
             {/* Bloco 6: Prazo e Investimento */}
             <div>
-              <h2 className="text-base font-bold text-navy-900 uppercase tracking-wider text-xs border-b border-surface-100 pb-2 mb-3">
+              <h2 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-surface-100 pb-2 mb-3">
                 06 · Prazo, Orçamento & Encerramento
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
