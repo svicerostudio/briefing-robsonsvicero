@@ -104,6 +104,9 @@ export const AdminDashboard: React.FC = () => {
   const countTotal = briefings.length;
   const countNovos = briefings.filter((b) => b.status === 'novo').length;
   const countSites = briefings.filter((b) => b.tipo_briefing === 'Site').length;
+  const countLandingPages = briefings.filter((b) => b.tipo_briefing === 'LandingPage').length;
+  const countEcommerce = briefings.filter((b) => b.tipo_briefing === 'Ecommerce').length;
+  const countBranding = briefings.filter((b) => b.tipo_briefing === 'Branding').length;
   const countApps = briefings.filter((b) => b.tipo_briefing === 'App').length;
 
   return (
@@ -135,7 +138,7 @@ export const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Métricas / Cards rápidos */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
           <div className="bg-white p-5 rounded-2xl border border-surface-200/80 shadow-sm">
             <span className="text-xs font-semibold text-ink-500">Total de Briefings</span>
             <p className="text-2xl font-bold text-navy-900 mt-1">{countTotal}</p>
@@ -149,8 +152,20 @@ export const AdminDashboard: React.FC = () => {
             <p className="text-2xl font-bold text-navy-900 mt-1">{countSites}</p>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-surface-200/80 shadow-sm">
+            <span className="text-xs font-semibold text-amber-600">Landing Pages</span>
+            <p className="text-2xl font-bold text-navy-900 mt-1">{countLandingPages}</p>
+          </div>
+          <div className="bg-white p-5 rounded-2xl border border-surface-200/80 shadow-sm">
             <span className="text-xs font-semibold text-purple-600">Briefings de Apps</span>
             <p className="text-2xl font-bold text-navy-900 mt-1">{countApps}</p>
+          </div>
+          <div className="bg-white p-5 rounded-2xl border border-surface-200/80 shadow-sm">
+            <span className="text-xs font-semibold text-emerald-600">E-Commerce</span>
+            <p className="text-2xl font-bold text-navy-900 mt-1">{countEcommerce}</p>
+          </div>
+          <div className="bg-white p-5 rounded-2xl border border-surface-200/80 shadow-sm">
+            <span className="text-xs font-semibold text-pink-600">Branding</span>
+            <p className="text-2xl font-bold text-navy-900 mt-1">{countBranding}</p>
           </div>
         </div>
 
@@ -177,6 +192,9 @@ export const AdminDashboard: React.FC = () => {
               >
                 <option value="todos">Todos os Tipos</option>
                 <option value="site">Apenas Sites</option>
+                <option value="landingpage">Apenas Landing Pages</option>
+                <option value="ecommerce">Apenas E-Commerce</option>
+                <option value="branding">Apenas Branding</option>
                 <option value="app">Apenas Apps</option>
               </select>
             </div>
@@ -252,10 +270,24 @@ export const AdminDashboard: React.FC = () => {
                           className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold ${
                             b.tipo_briefing === 'Site'
                               ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                              : 'bg-purple-50 text-purple-700 border border-purple-200'
+                              : b.tipo_briefing === 'LandingPage'
+                                ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                                : b.tipo_briefing === 'Ecommerce'
+                                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                  : b.tipo_briefing === 'Branding'
+                                    ? 'bg-pink-50 text-pink-700 border border-pink-200'
+                                    : 'bg-purple-50 text-purple-700 border border-purple-200'
                           }`}
                         >
-                          {b.tipo_briefing === 'Site' ? 'Website' : 'Aplicativo Web'}
+                          {b.tipo_briefing === 'Site'
+                            ? 'Website'
+                            : b.tipo_briefing === 'LandingPage'
+                              ? 'Landing Page'
+                              : b.tipo_briefing === 'Ecommerce'
+                                ? 'E-Commerce'
+                                : b.tipo_briefing === 'Branding'
+                                  ? 'Branding'
+                                  : 'Aplicativo Web'}
                         </span>
                       </td>
 

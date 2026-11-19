@@ -8,8 +8,6 @@ import { supabase } from '../lib/supabase';
 import { generateBriefingPdf } from '../lib/pdf';
 import { SiteBriefingData, Briefing } from '../types/briefing';
 
-const STORAGE_KEY = 'briefing_site_draft_v2';
-
 const initialData: SiteBriefingData = {
   nome: '',
   email: '',
@@ -48,12 +46,31 @@ const initialData: SiteBriefingData = {
   manutencao: '',
 };
 
-export const SiteBriefing: React.FC = () => {
+interface SiteBriefingProps {
+  briefingKind?: 'Site' | 'LandingPage' | 'Ecommerce';
+}
+
+export const SiteBriefing: React.FC<SiteBriefingProps> = ({ briefingKind = 'Site' }) => {
+  const isLandingPage = briefingKind === 'LandingPage';
+  const isEcommerce = briefingKind === 'Ecommerce';
+  const STORAGE_KEY =
+    briefingKind === 'LandingPage'
+      ? 'briefing_landing_page_draft_v1'
+      : briefingKind === 'Ecommerce'
+        ? 'briefing_ecommerce_draft_v1'
+        : 'briefing_site_draft_v2';
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<SiteBriefingData>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : initialData;
+      if (saved) return JSON.parse(saved);
+      if (isLandingPage) {
+        return { ...initialData, tipo_site: ['Landing Page'], paginas: ['Landing Page'] };
+      }
+      if (isEcommerce) {
+        return { ...initialData, tipo_site: ['Loja virtual'] };
+      }
+      return initialData;
     } catch {
       return initialData;
     }
@@ -146,7 +163,7 @@ export const SiteBriefing: React.FC = () => {
     setGlobalError(null);
 
     const newBriefing: Omit<Briefing, 'id' | 'created_at'> = {
-      tipo_briefing: 'Site',
+      tipo_briefing: briefingKind,
       nome: formData.nome.trim(),
       email: formData.email.trim(),
       telefone: formData.telefone.trim(),
@@ -214,7 +231,7 @@ export const SiteBriefing: React.FC = () => {
                 Obrigado, {submittedBriefing.nome}!
               </h1>
               <p className="text-sm text-ink-500 max-w-md mx-auto">
-                Recebemos todas as informações do seu site. Analisaremos todos os detalhes para entrar em contato com uma proposta alinhada aos seus objetivos.
+              Recebemos todas as informações {isLandingPage ? 'da sua Landing Page' : isEcommerce ? 'do seu projeto E-Commerce' : 'do seu site'}. Analisaremos todos os detalhes para entrar em contato com uma proposta alinhada aos seus objetivos.
               </p>
             </div>
 
@@ -254,10 +271,10 @@ export const SiteBriefing: React.FC = () => {
             Briefing de Projeto
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold">
-            Vamos criar o seu <span className="text-accent-300">site</span>
+            Vamos criar {isLandingPage ? 'sua' : 'seu'} <span className="text-accent-300">{isLandingPage ? 'Landing Page' : isEcommerce ? 'E-Commerce' : 'site'}</span>
           </h1>
           <p className="text-sm sm:text-base text-accent-200/90 max-w-xl mx-auto">
-            Responda às perguntas abaixo para mapearmos objetivos, páginas e funcionalidades.
+            Responda às perguntas abaixo para mapearmos objetivos, conteúdo e conversão.
           </p>
         </div>
       </div>
@@ -397,17 +414,17 @@ export const SiteBriefing: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-ink-700 mb-2">Tipo de site pretendido</label>
+                <label className="block text-xs font-semibold text-ink-700 mb-2">
+                  {isEcommerce ? 'Qual o tipo pretendido?' : 'Tipo de site pretendido'}
+                </label>
                 <ChipSelect
-                  options={[
-                    'Institucional',
-                    'Landing page',
-                    'Portfólio',
-                    'Blog / conteúdo',
-                    'Loja virtual',
-                    'Catálogo de produtos',
-                    'Outro',
-                  ]}
+                  options={
+                    isLandingPage
+                      ? ['Landing Page']
+                      : isEcommerce
+                        ? ['E-Commerce / Loja virtual', 'Catálogo de produtos']
+                        : ['Institucional', 'One Page', 'Portfólio', 'Blog/conteúdo']
+                  }
                   selected={formData.tipo_site}
                   onChange={(val) => updateField('tipo_site', val)}
                 />

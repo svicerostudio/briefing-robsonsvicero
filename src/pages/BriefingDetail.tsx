@@ -148,15 +148,29 @@ export const BriefingDetail: React.FC = () => {
                   className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold ${
                     briefing.tipo_briefing === 'Site'
                       ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                      : 'bg-purple-50 text-purple-700 border border-purple-200'
+                      : briefing.tipo_briefing === 'LandingPage'
+                        ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                      : briefing.tipo_briefing === 'Ecommerce'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : briefing.tipo_briefing === 'Branding'
+                          ? 'bg-pink-50 text-pink-700 border border-pink-200'
+                          : 'bg-purple-50 text-purple-700 border border-purple-200'
                   }`}
                 >
-                  {briefing.tipo_briefing === 'Site' ? (
+                  {briefing.tipo_briefing === 'Site' || briefing.tipo_briefing === 'LandingPage' || briefing.tipo_briefing === 'Ecommerce' || briefing.tipo_briefing === 'Branding' ? (
                     <Globe className="w-3.5 h-3.5 mr-1" />
                   ) : (
                     <Smartphone className="w-3.5 h-3.5 mr-1" />
                   )}
-                  {briefing.tipo_briefing === 'Site' ? 'Briefing de Site' : 'Briefing de Aplicativo'}
+                  {briefing.tipo_briefing === 'Site'
+                    ? 'Briefing de Site'
+                    : briefing.tipo_briefing === 'LandingPage'
+                      ? 'Briefing de Landing Page'
+                      : briefing.tipo_briefing === 'Ecommerce'
+                        ? 'Briefing de E-Commerce'
+                        : briefing.tipo_briefing === 'Branding'
+                          ? 'Briefing de Branding'
+                          : 'Briefing de Aplicativo'}
                 </span>
                 <span className="text-xs text-ink-300">•</span>
                 <span className="text-xs text-ink-500 flex items-center gap-1">
@@ -280,9 +294,32 @@ export const BriefingDetail: React.FC = () => {
                 )}
 
                 {d.concorrentes && (
-                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60">
+                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60 overflow-hidden">
                     <span className="text-xs font-semibold text-ink-500 block mb-1">Concorrentes / Referências:</span>
-                    <p className="text-sm text-ink-900 whitespace-pre-wrap">{d.concorrentes}</p>
+                    <div className="text-sm text-ink-900 space-y-1">
+                      {d.concorrentes.split('\n').filter((l: string) => l.trim().length > 0).map((item: string, idx: number) => {
+                        const trimmed = item.trim();
+                        const isUrl = /^https?:\/\//i.test(trimmed) || /^www\./i.test(trimmed);
+                        const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+
+                        return isUrl ? (
+                          <a
+                            key={idx}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={trimmed}
+                            className="block text-accent-600 hover:underline truncate sm:break-all font-medium"
+                          >
+                            {trimmed}
+                          </a>
+                        ) : (
+                          <p key={idx} className="truncate sm:whitespace-pre-wrap sm:break-words" title={trimmed}>
+                            {trimmed}
+                          </p>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
@@ -415,23 +452,47 @@ export const BriefingDetail: React.FC = () => {
                 )}
 
                 {d.referencias_visuais && (
-                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60">
+                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60 overflow-hidden">
                     <span className="text-xs font-semibold text-ink-500 block mb-1">Referências Visuais:</span>
-                    <p className="text-sm text-ink-900 whitespace-pre-wrap">{d.referencias_visuais}</p>
+                    <div className="text-sm text-ink-900 space-y-1">
+                      {d.referencias_visuais.split('\n').filter((l: string) => l.trim().length > 0).map((item: string, idx: number) => {
+                        const trimmed = item.trim();
+                        const isUrl = /^https?:\/\//i.test(trimmed) || /^www\./i.test(trimmed);
+                        const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+
+                        return isUrl ? (
+                          <a
+                            key={idx}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={trimmed}
+                            className="block text-accent-600 hover:underline truncate sm:break-all font-medium"
+                          >
+                            {trimmed}
+                          </a>
+                        ) : (
+                          <p key={idx} className="truncate sm:whitespace-pre-wrap sm:break-words" title={trimmed}>
+                            {trimmed}
+                          </p>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
 
                 {d.link_arquivos && (
-                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60">
+                  <div className="sm:col-span-2 bg-surface-50/60 p-4 rounded-xl border border-surface-200/60 overflow-hidden">
                     <span className="text-xs font-semibold text-ink-500 block mb-1">Link para Logo / Arquivos:</span>
                     <a
                       href={d.link_arquivos}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-accent-600 hover:underline font-semibold flex items-center gap-1 mt-1"
+                      title={d.link_arquivos}
+                      className="text-sm text-accent-600 hover:underline font-semibold flex items-center gap-1.5 mt-1 max-w-full overflow-hidden"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      {d.link_arquivos}
+                      <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="truncate sm:break-all">{d.link_arquivos}</span>
                     </a>
                   </div>
                 )}

@@ -6,6 +6,7 @@ import { AppBriefing } from './pages/AppBriefing';
 import { Login } from './pages/Login';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { BriefingDetail } from './pages/BriefingDetail';
+import { BrandingBriefing } from './pages/BrandingBriefing';
 import { supabase } from './lib/supabase';
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
@@ -56,6 +57,9 @@ export function App() {
         {/* Rotas Públicas */}
         <Route path="/" element={<Home />} />
         <Route path="/site" element={<SiteBriefing />} />
+        <Route path="/landing-page" element={<SiteBriefing briefingKind="LandingPage" />} />
+        <Route path="/e-commerce" element={<SiteBriefing briefingKind="Ecommerce" />} />
+        <Route path="/branding" element={<BrandingBriefing />} />
         <Route path="/app" element={<AppBriefing />} />
         <Route path="/admin/login" element={<Login />} />
 

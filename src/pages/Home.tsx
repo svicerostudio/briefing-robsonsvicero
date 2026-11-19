@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Globe, Smartphone, ArrowRight, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import { Globe, Smartphone, ArrowRight, Clock, Sparkles, MousePointerClick, ShoppingBag, Palette } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
 export const Home: React.FC = () => {
-  const [selectedType, setSelectedType] = useState<'site' | 'app' | ''>('');
+  const [selectedType, setSelectedType] = useState<'site' | 'landingPage' | 'ecommerce' | 'branding' | 'app' | ''>('');
   const navigate = useNavigate();
 
   const handleStart = () => {
     if (selectedType === 'site') navigate('/site');
+    if (selectedType === 'landingPage') navigate('/landing-page');
+    if (selectedType === 'ecommerce') navigate('/e-commerce');
+    if (selectedType === 'branding') navigate('/branding');
     if (selectedType === 'app') navigate('/app');
   };
 
@@ -62,13 +65,65 @@ export const Home: React.FC = () => {
                   }`}>
                     <Globe className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-navy-900 text-lg mb-1">Criação de Site</h3>
+                  <h3 className="font-bold text-navy-900 text-lg mb-1">Site</h3>
                   <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">
-                    Sites institucionais, landing pages de alta conversão, portfólios, catálogos e lojas virtuais.
+                    Sites institucionais, portfólios, catálogos e blogs/conteúdo.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-surface-200/60 flex items-center text-xs font-semibold text-accent-700">
                   <span>6 etapas rápidas</span>
+                </div>
+              </button>
+
+              {/* Card Landing Page */}
+              <button
+                type="button"
+                onClick={() => setSelectedType('landingPage')}
+                className={`p-6 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between ${
+                  selectedType === 'landingPage'
+                    ? 'border-accent-600 bg-accent-50/60 shadow-md ring-2 ring-accent-600/20'
+                    : 'border-surface-200 hover:border-accent-300 hover:bg-surface-50'
+                }`}
+              >
+                <div>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                    selectedType === 'landingPage' ? 'bg-accent-600 text-white' : 'bg-surface-100 text-accent-600'
+                  }`}>
+                    <MousePointerClick className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-navy-900 text-lg mb-1">Landing Page</h3>
+                  <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">
+                    Página focada em conversão, campanhas, lançamentos e geração de contatos.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-surface-200/60 flex items-center text-xs font-semibold text-accent-700">
+                  <span>6 etapas rápidas</span>
+                </div>
+              </button>
+
+              {/* Card E-Commerce */}
+              <button
+                type="button"
+                onClick={() => setSelectedType('ecommerce')}
+                className={`p-6 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between ${
+                  selectedType === 'ecommerce'
+                    ? 'border-accent-600 bg-accent-50/60 shadow-md ring-2 ring-accent-600/20'
+                    : 'border-surface-200 hover:border-accent-300 hover:bg-surface-50'
+                }`}
+              >
+                <div>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                    selectedType === 'ecommerce' ? 'bg-accent-600 text-white' : 'bg-surface-100 text-accent-600'
+                  }`}>
+                    <ShoppingBag className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-navy-900 text-lg mb-1">E-Commerce</h3>
+                  <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">
+                    Loja virtual ou catálogo de produtos para apresentar e vender seu portfólio.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-surface-200/60 flex items-center text-xs font-semibold text-accent-700">
+                  <span>6 etapas detalhadas</span>
                 </div>
               </button>
 
@@ -91,6 +146,32 @@ export const Home: React.FC = () => {
                   <h3 className="font-bold text-navy-900 text-lg mb-1">Aplicativo Web (App)</h3>
                   <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">
                     Plataformas SaaS, portais com login/área restrita, painéis administrativos, marketplaces e automações.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-surface-200/60 flex items-center text-xs font-semibold text-accent-700">
+                  <span>6 etapas detalhadas</span>
+                </div>
+              </button>
+
+              {/* Card Branding */}
+              <button
+                type="button"
+                onClick={() => setSelectedType('branding')}
+                className={`p-6 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between ${
+                  selectedType === 'branding'
+                    ? 'border-accent-600 bg-accent-50/60 shadow-md ring-2 ring-accent-600/20'
+                    : 'border-surface-200 hover:border-accent-300 hover:bg-surface-50'
+                }`}
+              >
+                <div>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                    selectedType === 'branding' ? 'bg-accent-600 text-white' : 'bg-surface-100 text-accent-600'
+                  }`}>
+                    <Palette className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-navy-900 text-lg mb-1">Branding</h3>
+                  <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">
+                    Identidade visual, criação ou redesenho de marca e manual gráfico.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-surface-200/60 flex items-center text-xs font-semibold text-accent-700">

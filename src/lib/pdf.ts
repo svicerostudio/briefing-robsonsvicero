@@ -45,7 +45,17 @@ export function generateBriefingPdf(briefing: Briefing) {
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(108, 115, 125);
   doc.text(
-    `Tipo: ${briefing.tipo_briefing === 'Site' ? 'Criação de Website' : 'Aplicativo Web (App)'} | Robson Svicero`,
+    `Tipo: ${
+      briefing.tipo_briefing === 'Site'
+        ? 'Criação de Website'
+        : briefing.tipo_briefing === 'LandingPage'
+          ? 'Landing Page'
+          : briefing.tipo_briefing === 'Ecommerce'
+            ? 'E-Commerce'
+            : briefing.tipo_briefing === 'Branding'
+              ? 'Branding / Identidade Visual'
+              : 'Aplicativo Web (App)'
+    } | Robson Svicero`,
     margin,
     y
   );
@@ -158,10 +168,18 @@ export function generateBriefingPdf(briefing: Briefing) {
     addField('Diferencial do Negócio', d.diferencial);
   }
   addField('Concorrentes e Referências', d.concorrentes);
+  if (briefing.tipo_briefing === 'Branding') {
+    addField('Tipo de Projeto de Marca', d.tipo_marca);
+    addField('Motivo do Projeto', d.motivo);
+  }
 
   // 3. Público e Estrutura
   addSection('3. Público e Estrutura');
   addField('Público-Alvo', d.publico);
+  if (briefing.tipo_briefing === 'Branding') {
+    addField('Valores e Propósito da Marca', d.valores);
+    addField('Diferencial da Marca', d.diferenca);
+  }
   if (briefing.tipo_briefing === 'App') {
     addField('Estimativa de Usuários (1º ano)', d.qtd_usuarios);
     addField('Perfis de Acesso', d.perfis);

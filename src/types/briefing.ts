@@ -1,4 +1,4 @@
-export type BriefingType = 'Site' | 'App';
+export type BriefingType = 'Site' | 'App' | 'LandingPage' | 'Ecommerce' | 'Branding';
 
 export type BriefingStatus = 'novo' | 'em_analise' | 'concluido' | 'arquivado';
 
